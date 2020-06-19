@@ -1,11 +1,17 @@
 <?php
 
-use Simplex\Framework;
+use Simplex\StringResponseListener;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-include __DIR__ . '/../src/app.php';        // 引入路由 Route 定义
+$routes = include __DIR__ . '/../src/app.php';
+$container = include __DIR__ . '/../src/container.php';
 
+$container->register('listener.string_response', StringResponseListener::class);
+$container->getDefinition('dispatcher')->addMethodCall('addSubscriber', [new Reference('listener.string_response')]);
 
-(new Framework($routes))->handle(Request::createFromGlobals())->send();
+$request = Request::createFromGlobals();
+$response = $container->get('framework')->handle($request);
+$response->send();
