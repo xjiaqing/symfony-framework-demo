@@ -11,3 +11,5 @@ $routes->add('leap_year', new Route('/is-leap-year/{year}', [
         '_controller' => LeapYearController::class . '::index',
     ]
 ));
+
+return $routes;
