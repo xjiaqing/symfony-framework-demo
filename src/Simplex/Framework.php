@@ -42,6 +42,7 @@ class Framework implements HttpKernelInterface
         try {
             $request->attributes->add($this->matcher->match($request->getPathInfo()));
             $controller = $this->controllerResolver->getController($request);
+
             $arguments = $this->argumentResolver->getArguments($request, $controller);
             $response = call_user_func_array($controller, $arguments);
         } catch (ResourceNotFoundException $exception) {

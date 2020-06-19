@@ -14,8 +14,9 @@ use Symfony\Component\Routing\RequestContext;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+include __DIR__ . '/../src/app.php';        // 引入路由 Route 定义
+
 $request = Request::createFromGlobals();
-$routes = include __DIR__ . '/../src/app.php';
 
 $context = new RequestContext();
 $context->fromRequest($request);

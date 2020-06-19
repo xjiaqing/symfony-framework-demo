@@ -5,3 +5,4 @@ out
 gen
 composer.phar
 /vendor/
+/cache/
